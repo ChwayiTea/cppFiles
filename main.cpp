@@ -1,18 +1,32 @@
 #include <iostream>
+#include <fstream>
+#include <string>
 
 using namespace std;
 
 int main() {
 
-    char input, firstl = 'A';
-    cout<<"Please enter an alphabet in Capital to be at end of the pyramid :"<<endl;
-    cin>> input;
-    for (int i=1; i <= (input- 'A' + 1); i++){
-        for (int j = 1; j<= i; j++){
-            cout<< firstl<< "";
-        }
-        firstl++;
-        cout<<endl;
+    string line;
+    //create an output stream to write to file
+    //append the new line to the end of the file
+
+    ofstream myFileIn ("input.txt", ios::app);
+    if (myFileIn.is_open()){
+        myFileIn << "\nI am adding my first line.\n";
+        myFileIn << "I am adding another line.\n";
+        myFileIn.close();
     }
+    else cout <<"Unable to open file for writing";
+
+    //create an input stream to read file
+    ifstream myFileOut ("input.txt");
+    //during the creation of ifstream the file is open
+
+    if (myFileOut.is_open()){
+        while (getline(myFileOut,line)){
+            cout << line <<'\n';
+        }
+    }
+    else cout << "Unable to open file for reading";
     return 0;
 }
